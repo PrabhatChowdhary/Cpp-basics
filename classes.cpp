@@ -5,8 +5,13 @@ using namespace std;
 class person{
     private:
         int age, weight, height;
+        float BMI(){
+            cout<<"BMI index is "<<(100*100*weight)/(height*height)<<endl;
+            return (100*100*weight)/(height*height);
+        }
     public:
         void readvalues(bool RW);
+        void isHealthy();
 };
 
 void person::readvalues(bool RW){
@@ -19,13 +24,29 @@ void person::readvalues(bool RW){
         cout<<height<<endl;
     }
     else{
-            cout<<" type in the age"<<endl;
+            cout<<" type in the age in years"<<endl;
             cin>>age;
-            cout<<" type in the weight"<<endl;
+            cout<<" type in the weight in kg"<<endl;
             cin>>weight;
-            cout<<" type in the height"<<endl;
+            cout<<" type in the height in cm"<<endl;
             cin>>height; 
     }
+}
+
+void person::isHealthy(){
+    float BMI_value = BMI();
+    
+    //switch case cant be used directly for float
+    if(BMI_value<18.5){
+        cout<<"the person is underweight "<<endl;
+        }
+    else if(18.5<BMI_value && BMI_value<24.9){
+        cout<<"the person is fit"<<endl;
+        }
+    else if(BMI_value>24.9){
+        cout<<"the person is overweight"<<endl;
+        }
+
 }
 
 int main(){
@@ -33,10 +54,14 @@ int main(){
     int x=12;
     int RW;
     person p1;
+   
+    //float check_BMI=p1.BMI();
+
     while(RW==1||RW==0){
         cout<<endl<<"to read person's details-1, to write person's details-0, to exit-2 "<<endl;
         cin>>RW;
         p1.readvalues(RW);
+        p1.isHealthy();
     }
     return 0;
 }
