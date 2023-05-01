@@ -12,6 +12,15 @@ class person{
     public:
         void readvalues(bool RW);
         void isHealthy();
+    //constructor function
+        person(){
+            cout<<" type in the age in years"<<endl;
+            cin>>age;
+            cout<<" type in the weight in kg"<<endl;
+            cin>>weight;
+            cout<<" type in the height in cm"<<endl;
+            cin>>height; 
+        }
 };
 
 void person::readvalues(bool RW){
