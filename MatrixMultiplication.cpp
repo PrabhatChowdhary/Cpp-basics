@@ -12,7 +12,7 @@ using namespace std;
 
 */
 
-void matrixMult(vector<int>* mat1,vector<int>* mat2) {
+vector<vector<int>> matrixMult(vector<vector<int>>& mat1, vector<vector<int>>& mat2) {
 	vector<vector<int>> matOutput;
 	int oneElement = 0;
 	int x = 0;
@@ -26,20 +26,16 @@ void matrixMult(vector<int>* mat1,vector<int>* mat2) {
 				cout << "input elements are - mat1 " << mat1[x][j] << " and for mat2 " << mat2[j][y] << endl;
 			}
 			matOutput_row.push_back(oneElement);
+			
 			oneElement = 0;
 		}
 		matOutput.push_back(matOutput_row);
+		
 
 	}
 
-	cout << "the output of multiplied matrix is " << endl;
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
-			cout << matOutput[i][j] << " ";
-		}
-		cout << endl;
-	}
-
+	
+	return matOutput;
 }
 
 int main() {
@@ -60,7 +56,14 @@ int main() {
 	std::cout << "dimensions of matrix 2 are " << mat2[0].size() << " x " << mat2.size() << std::endl;
 
 	//function call for matrix multiplication
-	matrixMult(mat1.data(), mat2.data());
+	OutputMatrix=matrixMult(mat1, mat2);
+	cout << "the output of multiplied matrix is " << endl;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			cout << OutputMatrix[i][j] << " ";
+		}
+		cout << endl;
+	}
 
 	return 0;
 }
