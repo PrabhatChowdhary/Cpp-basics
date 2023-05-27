@@ -5,9 +5,14 @@ public:
     int data;
     node* next;
     //constructor definition to come here
+    node(int x=0,node* nextptr=nullptr){
+        data=x;
+        next=nextptr;
+    }
 };
 
 void printLinklist(node* inputNode) {
+    
     cout << "first data value of passed node is " << inputNode->data << endl;
    
         while (inputNode!=NULL){
@@ -24,10 +29,10 @@ void printLinklist(node* inputNode) {
 
 void appendNode(node* inputNode, int data) {
     cout << "checking input parsing in appendNode function " << inputNode->data << " and the input data is " << data << endl;
-    node* newNode = new node;//random address
-    newNode->next = inputNode->next;
+    node* newNode =  new node(data,inputNode->next);//not random address now with constructor
+    //newNode->next = inputNode->next;
     inputNode->next = newNode;
-    newNode->data = data;
+    //newNode->data = data;
 }
 
 void reverveLinkList(node* inputNode) {
