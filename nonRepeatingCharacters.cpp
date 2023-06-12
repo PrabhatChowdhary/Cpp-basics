@@ -12,17 +12,16 @@ using namespace std;
 
 int lengthOfLongestSubstring(string s){
     
-    unordered_map<char,int> letterFound;// using type char, int instead of string,int because string[i] will give data type character
-    int size=s.size(),count=0,max=0;
+        int size=s.size(),count=0,max=0;
 
     for(int k=0;k<size;k++){
-        letterFound.clear();
+        vector<bool> visited(256,false);
         count=0;
         for (int i=k;i<size;i++){
-            if(letterFound[s[i] ]>0) 
+            if(visited[s[i] ]) 
                 break;
             count++;
-            letterFound[s[i] ]++;
+            visited[s[i] ]=true;
         }   
         if(max<count)
             max=count;
