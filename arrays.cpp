@@ -11,7 +11,7 @@ Question 3:
 Write a code that given an array A of size n, finds the most frequent element in A.*/
 
 int* computeB(int* A, int size) {
-	int *B=new int[size];
+	int *B=new int[size]; 		//int *B= (int*) malloc(size*sizeof(int))  can also be used but it is recommended to use new.
 	int sum=0;
 	for (int i = 0; i < size; i++) {
 		sum = sum + A[i];
