@@ -53,6 +53,10 @@ void mostFrequentElement(int* A, int size) {
 		counter = 1;
 		
 	}
+	if (counter > counterMax) {
+			counterMax = counter;
+			maxFreqValue = A[size-1];
+		}
 	cout << "element with max frequency is " << maxFreqValue << " and its frequency is " << counterMax << endl;
 }
 
