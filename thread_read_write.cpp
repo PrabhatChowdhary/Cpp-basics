@@ -5,23 +5,23 @@ using namespace std;
 
 mutex m;
 
-void readbuf(int* i){
+void readbuf(int* i,int index){
     int count=0;
         while(count<5){
         m.lock();
 
-        cout<<"reading "<<*i<<endl;
+        cout<<"reading "<<i[index]<<endl;
         m.unlock();
         count++;
     }
 }
 
-void writebuf(int* i){
+void writebuf(int* i,int index,int val){
     
     
     m.lock();
-    *i=*i+1;
-    cout<<"writing "<<*i<<endl;
+    i[index]=val;
+    cout<<"writing "<<val<<endl;
     m.unlock();
     
 }
@@ -29,10 +29,17 @@ void writebuf(int* i){
 int main(){
     int* arr=new int[10]();
     //int arr[10]={0};
+    int index=2,val=49;
+/*
+    cout<<"write the index you want to write "<<endl;
+    cin>>index;
+    cout<<"what value should be written on that index "<<endl;
+    cin>>val;
+*/
     
-    thread threadA(readbuf,arr);
-    thread threadB(writebuf,arr);
-    thread threadC(writebuf,arr);
+    thread threadA(readbuf,arr,index);
+    thread threadB(writebuf,arr,index,val);
+    thread threadC(writebuf,arr,index,val);
 
     threadA.join();
     threadB.join();
