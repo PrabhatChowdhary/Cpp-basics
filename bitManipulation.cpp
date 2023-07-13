@@ -51,13 +51,11 @@ int reversebits(int n){ //reverse its binary representation
     int x=0;
     cout<<endl;
     while(n){
-        cout<<"n is "<<n<<endl;
-        cout<<"x is "<<x<<endl;
-        x=x+(n & 1);
-        x=x<<1;
-        n=n>>1;
-        cout<<"n is "<<n<<endl;
-        cout<<"x is "<<x<<endl;
+        if(x>0){
+           x=x<<1;
+        }
+        x=x|(n & 1);
+        n=n>>1;  
     }
     cout<<"return x is "<<x<<endl;
     return x;
