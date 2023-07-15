@@ -1,5 +1,3 @@
-//this is actually the code to test memory coherency
-
 #define CL_HPP_ENABLE_EXCEPTIONS
 #define CL_HPP_TARGET_OPENCL_VERSION 200
 
