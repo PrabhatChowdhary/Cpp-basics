@@ -27,6 +27,28 @@ int main() {
         cl::Context context(devices);
         cl::CommandQueue queue(context, devices[0]);
 
+        //getDevice info
+        cl_uint maxComputeUnits;
+        cl_ulong globalMemSize;
+        cl_ulong localMemSize;
+        cl_uint maxWorkItems;
+        cl_uint maxWorkItemDims;
+        size_t maxWorkGroupSize;
+
+        devices[0].getInfo(CL_DEVICE_MAX_COMPUTE_UNITS, &maxComputeUnits);
+        devices[0].getInfo(CL_DEVICE_GLOBAL_MEM_SIZE, &globalMemSize);
+        devices[0].getInfo(CL_DEVICE_LOCAL_MEM_SIZE, &localMemSize);
+        devices[0].getInfo(CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, &maxWorkItemDims);
+        devices[0].getInfo(CL_DEVICE_MAX_WORK_GROUP_SIZE, &maxWorkGroupSize);
+
+        // Print the device information
+        std::cout << "Device Info:" << std::endl;
+        std::cout << "  Max Compute Units: " << maxComputeUnits << std::endl;
+        std::cout << "  Global Memory Size: " << globalMemSize << " bytes" << std::endl;
+        std::cout << "  Local Memory Size: " << localMemSize << " bytes" << std::endl;
+        std::cout << "  Max Work Item Dimensions: " << maxWorkItemDims << std::endl;
+        std::cout << "  Max Work Group Size: " << maxWorkGroupSize << std::endl;
+       
         // Create a buffer
         cl::Buffer buffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, n * sizeof(int), data.data());
 
@@ -46,6 +68,7 @@ int main() {
         cl::Kernel kernel(program, "test_coherency");
         kernel.setArg(0, buffer);
 
+
         // Enqueue the kernel
         queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(n), cl::NullRange);
 
@@ -62,6 +85,7 @@ int main() {
             }
             else {
                 failingCount++;
+                std::cout << "index " << i << " is failing " << std::endl;
             }
         }
 
