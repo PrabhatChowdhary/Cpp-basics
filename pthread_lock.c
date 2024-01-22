@@ -6,7 +6,7 @@ pthread_mutex_t mutex;
 volatile static int shared_variable = 0;
 
 void *thread_function(void* arg){
-	
+	printf("thread %d launched \n",*(int*)arg);
 	pthread_mutex_lock(&mutex);
 	printf("thread id %d locked. Shared variable value before increament is %d \n",*(int*)arg, shared_variable);
 	shared_variable++;
@@ -23,17 +23,17 @@ int main(){
 		return 1;
 	}
 	
-	int id[40];
-	for(int i = 1; i<41; i++){
-		id[i] = i;
+	int id[4];
+	for(int i = 1; i<5; i++){
+		id[i-1] = i;
 	}
-	pthread_t threads[40];
+	pthread_t threads[4];
 	
-	for(int i =0; i<40; i++){
+	for(int i =0; i<4; i++){
 		pthread_create(&threads[i],NULL, thread_function, (void*)(&id[i]));
 	}
 	
-	for(int i=0; i<40; i++){
+	for(int i=0; i<4; i++){
 		pthread_join(threads[i], NULL);
 	}
 	
