@@ -57,6 +57,8 @@ int main(){
 	pthread_join(p, NULL);
 	pthread_join(c, NULL);
 	pthread_mutex_destroy(&mutex);
+	sem_destroy(&has_data);
+	sem_destroy(&has_space);
 	
 	
 	return 0;
