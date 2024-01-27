@@ -36,8 +36,8 @@ int main() {
             __kernel void test_coherency(__global int* buffer) {
                 int id = get_global_id(0);
                 int value = buffer[id];
-                barrier(CLK_GLOBAL_MEM_FENCE);
                 int otherValue = buffer[(id + 1) % get_global_size(0)];
+                barrier(CLK_GLOBAL_MEM_FENCE);
                 buffer[id] = value + otherValue;
             }
         )";
