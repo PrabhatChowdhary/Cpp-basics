@@ -56,8 +56,10 @@ int main() {
     kernel.setArg(2, c_buf);
 
     // Enqueue kernel 
-    queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(n), cl::NullRange);
-
+    cl::Event kernelEvent;
+    queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(n), cl::NullRange, nullptr, kernelEvent);
+    kernelEvent.wait();
+    
     // Copy results back to host 
     queue.enqueueReadBuffer(c_buf, CL_TRUE, 0, n * sizeof(float), c.data());
 
