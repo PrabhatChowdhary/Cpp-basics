@@ -86,7 +86,11 @@ int main() {
         // Enqueue the OpenCL kernel for execution
         cl::NDRange globalSize(N, N);
         cl::NDRange localSize(1, 1);  // Use a 1x1 work-group size for simplicity
-        queue.enqueueNDRangeKernel(kernel, cl::NullRange, globalSize, localSize);
+        cl::Event kernelEvent;
+        queue.enqueueNDRangeKernel(kernel, cl::NullRange, globalSize, localSize, nullptr, &kernelEvent);
+
+        //wait for entire kernel execution to complete
+        kernelEvent.wait();
 
         // Read the OpenCL result back to the host
         queue.enqueueReadBuffer(bufferC, CL_TRUE, 0, sizeof(float) * N * N, C.data());
