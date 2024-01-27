@@ -54,8 +54,9 @@ int main() {
 
         // Enqueue the kernel
         cl::NDRange globalSize(n);
-        queue.enqueueNDRangeKernel(kernel, cl::NullRange, globalSize, cl::NullRange);
-
+        cl::Event kernelEvent;
+        queue.enqueueNDRangeKernel(kernel, cl::NullRange, globalSize, cl::NullRange,nullptr, &kernelEvent);
+        kernelEvent.wait();
         // Read the modified data back to the host
         queue.enqueueReadBuffer(buffer, CL_TRUE, 0, sizeof(int) * n, data.data());
 
