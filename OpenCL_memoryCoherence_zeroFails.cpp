@@ -29,7 +29,7 @@ int main() {
         cl::CommandQueue queue(context, devices[0]);
 
         // Create the buffer
-        cl::Buffer buffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(int) * n, data);
+        cl::Buffer buffer(context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, sizeof(int) * n, data.data());//we use data.data() instead of &data because data.data() points to address of first element stored in vector and &data points to location of vector object, it won't point to first element as there are other things stored in vector meta data like size 
 
         // Read the OpenCL kernel code from a string
         std::string kernel_code = R"(
