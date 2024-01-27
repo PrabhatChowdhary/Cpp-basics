@@ -31,8 +31,8 @@ int main() {
     cl::Buffer c_buf(context, CL_MEM_WRITE_ONLY, n * sizeof(float));
 
     // Copy data to buffers 
-    queue.enqueueWriteBuffer(a_buf, CL_TRUE, 0, n * sizeof(float), a.data());
-    queue.enqueueWriteBuffer(b_buf, CL_TRUE, 0, n * sizeof(float), b.data());
+    queue.enqueueWriteBuffer(a_buf, CL_TRUE, 0, n * sizeof(float), a);
+    queue.enqueueWriteBuffer(b_buf, CL_TRUE, 0, n * sizeof(float), b);
 
     // Create and build program 
     std::string kernel_code = R"( 
@@ -59,7 +59,7 @@ int main() {
     queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(n), cl::NullRange);
 
     // Copy results back to host 
-    queue.enqueueReadBuffer(c_buf, CL_TRUE, 0, n * sizeof(float), c.data());
+    queue.enqueueReadBuffer(c_buf, CL_TRUE, 0, n * sizeof(float), c);
 
     // Print results 
     for (int i = 0; i < n; i++) {
