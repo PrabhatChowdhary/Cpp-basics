@@ -45,8 +45,8 @@ int main() {
         cl::CommandQueue queue(context, devices[0]);
 
         // Create input and output buffers
-        cl::Buffer bufferA(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float) * N * N, A.data());
-        cl::Buffer bufferB(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float) * N * N, B.data());
+        cl::Buffer bufferA(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float) * N * N, A);
+        cl::Buffer bufferB(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float) * N * N, B);
         cl::Buffer bufferC(context, CL_MEM_WRITE_ONLY, sizeof(float) * N * N);
 
         // Read the OpenCL kernel code from a string
@@ -89,7 +89,7 @@ int main() {
         queue.enqueueNDRangeKernel(kernel, cl::NullRange, globalSize, localSize);
 
         // Read the OpenCL result back to the host
-        queue.enqueueReadBuffer(bufferC, CL_TRUE, 0, sizeof(float) * N * N, C.data());
+        queue.enqueueReadBuffer(bufferC, CL_TRUE, 0, sizeof(float) * N * N, C);
 
         // Stop measuring the OpenCL execution time
         auto endOpenCL = std::chrono::steady_clock::now();
